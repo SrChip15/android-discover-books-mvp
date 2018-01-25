@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BookFindr</string>
+    <string name="edit_text_hint">Name of book</string>
+    <string name="search_button_cd">search button</string>
 </resources>
