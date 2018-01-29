@@ -1,4 +1,4 @@
-package com.example.android.bookfindr;
+package com.example.android.bookfindr.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.android.bookfindr.R;
+
 import butterknife.OnClick;
 
-import static com.example.android.bookfindr.ResultsFragment.USER_INPUT;
+import static com.example.android.bookfindr.view.ResultsFragment.USER_INPUT;
 
 public class MainActivity extends AppCompatActivity {
 

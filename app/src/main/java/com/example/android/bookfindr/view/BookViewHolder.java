@@ -1,9 +1,11 @@
-package com.example.android.bookfindr;
+package com.example.android.bookfindr.view;
 
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.android.bookfindr.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

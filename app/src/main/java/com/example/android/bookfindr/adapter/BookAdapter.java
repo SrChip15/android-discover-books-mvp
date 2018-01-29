@@ -1,17 +1,20 @@
-package com.example.android.bookfindr;
+package com.example.android.bookfindr.adapter;
 
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.android.bookfindr.R;
 import com.example.android.bookfindr.model.Book;
+import com.example.android.bookfindr.view.BookViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookAdapter extends EffectiveRecyclerView.Adapter<BookViewHolder> {
+public class BookAdapter extends RecyclerView.Adapter<BookViewHolder> {
 	private Context context;
 	private List<Book> books;
 

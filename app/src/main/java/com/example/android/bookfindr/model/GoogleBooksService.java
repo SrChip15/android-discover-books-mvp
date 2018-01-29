@@ -1,7 +1,5 @@
-package com.example.android.bookfindr;
+package com.example.android.bookfindr.model;
 
-
-import com.example.android.bookfindr.model.SearchResults;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

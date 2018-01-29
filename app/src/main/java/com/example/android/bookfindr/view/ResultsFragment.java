@@ -1,4 +1,4 @@
-package com.example.android.bookfindr;
+package com.example.android.bookfindr.view;
 
 
 import android.os.Bundle;
@@ -12,20 +12,20 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.android.bookfindr.EffectiveRecyclerView;
+import com.example.android.bookfindr.R;
+import com.example.android.bookfindr.adapter.BookAdapter;
 import com.example.android.bookfindr.model.Book;
-import com.example.android.bookfindr.model.SearchResults;
+import com.example.android.bookfindr.model.BooksInteractor;
+import com.example.android.bookfindr.model.BooksInteractorImpl;
+import com.example.android.bookfindr.presenter.BooksPresenter;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ResultsFragment extends Fragment {
+public class ResultsFragment extends Fragment implements BooksView {
 
 	BookAdapter adapter;
 	@BindView(R.id.search_results_rv)
@@ -34,7 +34,8 @@ public class ResultsFragment extends Fragment {
 	TextView emptyStateTextView;
 	@BindView(R.id.progress_bar)
 	ProgressBar progressBar;
-	GoogleBooksService service;
+	BooksInteractor interactor;
+	BooksPresenter presenter;
 	private String userInput;
 
 	public static final String USER_INPUT = "userInput";
@@ -47,14 +48,9 @@ public class ResultsFragment extends Fragment {
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		Bundle args = getArguments();
 		if (args != null) this.userInput = args.getString(USER_INPUT);
-
-		// Configure Retrofit
-		Retrofit retrofit = new Retrofit.Builder()
-				.baseUrl("https://www.googleapis.com")
-				.addConverterFactory(GsonConverterFactory.create())
-				.build();
-		// Create service
-		service = retrofit.create(GoogleBooksService.class);
+		interactor = new BooksInteractorImpl();
+		presenter = new BooksPresenter(interactor);
+		presenter.bind(this);
 		super.onCreate(savedInstanceState);
 	}
 
@@ -69,35 +65,25 @@ public class ResultsFragment extends Fragment {
 		recyclerView.setHasFixedSize(true);
 		recyclerView.setAdapter(adapter);
 
-		performSearch(this.userInput);
+		presenter.performSearch(userInput);
 		return view;
 	}
 
-	private void performSearch(String userInput) {
-		String formatUserInput = userInput.trim().replaceAll("\\s+", "+");
-		service.search("search+" + formatUserInput).enqueue(new Callback<SearchResults>() {
-			@Override
-			public void onResponse(@NonNull Call<SearchResults> call,
-			                       @NonNull Response<SearchResults> response) {
-				progressBar.setVisibility(View.GONE);
-				updateUi(response.body().getBooks());
-			}
-
-			@Override
-			public void onFailure(@NonNull Call<SearchResults> call, @NonNull Throwable t) {
-				t.printStackTrace();
-			}
-		});
-
-	}
-
-	private void updateUi(List<Book> books) {
+	@Override
+	public void updateUi(List<Book> books) {
 		if (books.isEmpty()) {
 			emptyStateTextView.setVisibility(View.VISIBLE);
 		} else {
 			emptyStateTextView.setVisibility(View.GONE);
+			progressBar.setVisibility(View.GONE);
 		}
 		adapter.clearData();
 		adapter.setData(books);
+	}
+
+	@Override
+	public void onDestroy() {
+		presenter.unbind();
+		super.onDestroy();
 	}
 }
