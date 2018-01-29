@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
+import butterknife.OnClick;
+
 import static com.example.android.bookfindr.ResultsFragment.USER_INPUT;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 		transaction.commit();
 	}
 
+	@OnClick(R.id.search_image_button)
 	public void initializeSearch(View view) {
 		Fragment resultsFragment = new ResultsFragment();
 		Bundle args = new Bundle();

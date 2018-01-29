@@ -11,29 +11,34 @@
         android:id="@+id/user_input_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="@string/edit_text_hint"
         android:inputType="text|textNoSuggestions"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.266"
+        app:layout_constraintHorizontal_bias="0.241"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline3"/>
 
     <ImageButton
         android:id="@+id/search_image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/search_button_cd"
         android:onClick="initializeSearch"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/user_input_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.148"
         app:layout_constraintStart_toEndOf="@+id/user_input_edit_text"
         app:layout_constraintTop_toTopOf="@+id/user_input_edit_text"
-        app:srcCompat="@drawable/ic_search"
-        android:contentDescription="@string/search_button_cd"/>
+        app:srcCompat="@drawable/ic_search"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"/>
 
 </android.support.constraint.ConstraintLayout>
